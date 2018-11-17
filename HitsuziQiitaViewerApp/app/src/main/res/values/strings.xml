@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HitsuziQiitaViewerApp</string>
+    <string name="search_hint_text">キーワードから探す</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

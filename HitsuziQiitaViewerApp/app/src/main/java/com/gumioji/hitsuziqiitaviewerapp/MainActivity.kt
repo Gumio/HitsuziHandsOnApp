@@ -15,12 +15,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        init()
-    }
-
-    private fun init() {
-        mBinding.changeButton.setOnClickListener {
-            mBinding.helloText.text = "hello, Fuck you"
-        }
+        val fragment = MainFragment.newInstance()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_container,fragment )
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
