@@ -39,11 +39,12 @@ class MainFragment : Fragment() {
             R.layout.list_item
         )
 
-        val listView = list_view
-        listView.adapter = mAdapter
-        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            val result = mAdapter.getItem(position)
-            replaceFragment(DetailFragment.newInstance(result?.url.toString()), R.id.main_container)
+        list_view.apply {
+            adapter = mAdapter
+            onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                val result = mAdapter.getItem(position)
+                replaceFragment(DetailFragment.newInstance(result?.url.toString()), R.id.main_container)
+            }
         }
         searchRequest()
     }
