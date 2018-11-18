@@ -2,7 +2,6 @@ package com.gumioji.hitsuziqiitaviewerapp
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +39,18 @@ class MainFragment : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
+        val request = QiitaClient.create().items()
+        val item = object : Callback<List<Item>> {
+            override fun onResponse(call: Call<List<Item>>?, response: Response<List<Item>>?) {
+                mAdapter.clear()
+                response?.body()?.forEach { mAdapter.add(it) }
+            }
+
+            override fun onFailure(call: Call<List<Item>>?, t: Throwable?) {
+            }
+        }
+        request.enqueue(item)
     }
 
     fun searchRequest(searchText: String) {
@@ -51,7 +62,7 @@ class MainFragment : Fragment() {
             Log.e("", e.toString(), e)
         }
 
-        if (!TextUtils.isEmpty(text)) {
+        if (text.isNotEmpty()) {
             val request = QiitaClient.create().items(text)
             Log.d("", request.request().url().toString())
             val item = object : Callback<List<Item>> {

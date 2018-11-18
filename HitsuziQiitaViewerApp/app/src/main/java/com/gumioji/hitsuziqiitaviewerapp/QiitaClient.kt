@@ -9,7 +9,7 @@ interface QiitaClient {
     @GET("/api/v2/items")
     fun items(@Query("query") query: String? = null,
               @Query("page") page: Int = 1,
-              @Query("per_page") perPage: Int = 100): Call<List<Item>>
+              @Query("per_page") perPage: Int = 50): Call<List<Item>>
 
     companion object {
         fun create(): QiitaClient {
