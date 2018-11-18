@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
         mSearchView = (menu?.findItem(R.id.toolbar_menu_search)?.actionView as SearchView).apply {
+            queryHint = "キーワードから探す"
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(text: String?): Boolean {
                     val mainFragment = supportFragmentManager.findFragmentById(R.id.main_container)
