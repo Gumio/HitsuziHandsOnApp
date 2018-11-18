@@ -1,6 +1,7 @@
 package com.gumioji.hitsuziqiitaviewerapp.ui.fragment
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import com.gumioji.hitsuziqiitaviewerapp.R
 import com.gumioji.hitsuziqiitaviewerapp.adapter.ListAdapter
+import com.gumioji.hitsuziqiitaviewerapp.data.Item
 import com.gumioji.hitsuziqiitaviewerapp.ext.replaceFragment
 import com.gumioji.hitsuziqiitaviewerapp.repository.SearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,11 +44,13 @@ class MainFragment : Fragment() {
         list_view.apply {
             adapter = mAdapter
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                Snackbar.make(this, "${position}番目のイベントが取れたぜ", Snackbar.LENGTH_SHORT).show()
                 val result = mAdapter.getItem(position)
                 replaceFragment(DetailFragment.newInstance(result?.url.toString()), R.id.main_container)
             }
         }
         searchRequest()
+        //dummy()
     }
 
     fun searchRequest(searchText: String? = null) {
@@ -63,5 +67,18 @@ class MainFragment : Fragment() {
             }, { error ->
                 error.printStackTrace()
             })
+    }
+
+    fun dummy() {
+        mutableListOf<Item>().apply {
+            repeat(10) {
+                add(Item(title = "hogehoge",
+                        user = Item.User(
+                            id = "hogeo",
+                            profile_image_url = "https://secure.gravatar.com/avatar/039bd34ca27b927998bd38483d505074"
+                        )
+                ))
+            }
+        }.toList().forEach { mAdapter.add(it) }
     }
 }
