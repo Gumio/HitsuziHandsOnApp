@@ -10,12 +10,7 @@ import android.widget.AdapterView
 import com.gumioji.hitsuziqiitaviewerapp.R
 import com.gumioji.hitsuziqiitaviewerapp.adapter.ListAdapter
 import com.gumioji.hitsuziqiitaviewerapp.data.Item
-import com.gumioji.hitsuziqiitaviewerapp.ext.replaceFragment
-import com.gumioji.hitsuziqiitaviewerapp.repository.SearchRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.net.URLEncoder
 
 
 class MainFragment : Fragment() {
@@ -45,28 +40,9 @@ class MainFragment : Fragment() {
             adapter = mAdapter
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 Snackbar.make(this, "${position}番目のイベントが取れたぜ", Snackbar.LENGTH_SHORT).show()
-                val result = mAdapter.getItem(position)
-                replaceFragment(DetailFragment.newInstance(result?.url.toString()), R.id.main_container)
             }
         }
-        searchRequest()
-        //dummy()
-    }
-
-    fun searchRequest(searchText: String? = null) {
-        val text: String? = searchText?.let {
-            URLEncoder.encode(it, "UTF-8")
-        }
-
-        val subscribe = SearchRepository.searchItem(text)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                mAdapter.clear()
-                result?.forEach { mAdapter.add(it) }
-            }, { error ->
-                error.printStackTrace()
-            })
+        dummy()
     }
 
     fun dummy() {
