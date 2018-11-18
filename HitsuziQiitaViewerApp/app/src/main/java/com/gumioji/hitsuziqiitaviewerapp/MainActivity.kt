@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import com.gumioji.hitsuziqiitaviewerapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     private val mBinding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
@@ -17,8 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         val fragment = MainFragment.newInstance()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_container,fragment )
-        transaction.addToBackStack(null)
+        transaction.replace(R.id.main_container, fragment)
         transaction.commit()
     }
 }
+
+
