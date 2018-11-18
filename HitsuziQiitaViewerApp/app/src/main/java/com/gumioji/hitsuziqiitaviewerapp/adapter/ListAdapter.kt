@@ -1,4 +1,4 @@
-package com.gumioji.hitsuziqiitaviewerapp
+package com.gumioji.hitsuziqiitaviewerapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.gumioji.hitsuziqiitaviewerapp.R
+import com.gumioji.hitsuziqiitaviewerapp.data.Item
 import com.squareup.picasso.Picasso
 
 class ListAdapter(context: Context, resource: Int) : ArrayAdapter<Item>(context, resource) {
@@ -23,14 +25,13 @@ class ListAdapter(context: Context, resource: Int) : ArrayAdapter<Item>(context,
         val itemTitleView = convertView.findViewById(R.id.item_title) as TextView
         val userNameView = convertView.findViewById(R.id.user_name) as TextView
 
-        imageView.setImageBitmap(null) // 残ってる画像を消す（再利用された時）
+        imageView.setImageBitmap(null)
 
-        // 表示する行番号のデータを取り出す
         val result = getItem(position)
 
-        Picasso.get().load(result.user?.profile_image_url).into(imageView)
-        itemTitleView.text = result.title
-        userNameView.text = result.user?.id
+        Picasso.get().load(result?.user?.profile_image_url).into(imageView)
+        itemTitleView.text = result?.title
+        userNameView.text = result?.user?.id
 
         return convertView
     }

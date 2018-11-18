@@ -1,4 +1,4 @@
-package com.gumioji.hitsuziqiitaviewerapp
+package com.gumioji.hitsuziqiitaviewerapp.data
 
 data class Item(
     val id: String?,
