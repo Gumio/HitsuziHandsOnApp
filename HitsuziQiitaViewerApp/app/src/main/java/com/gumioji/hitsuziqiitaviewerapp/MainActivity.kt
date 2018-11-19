@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import com.gumioji.hitsuziqiitaviewerapp.databinding.ActivityMainBinding
-import com.gumioji.hitsuziqiitaviewerapp.ext.replaceFragment
 import com.gumioji.hitsuziqiitaviewerapp.ui.fragment.MainFragment
 
 
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(MainFragment.newInstance(), mBinding.mainContainer.id)
+        // replaceFragment(MainFragment.newInstance(), mBinding.mainContainer.id)
 
         // 下を拡張したのが上
         val manager = supportFragmentManager
