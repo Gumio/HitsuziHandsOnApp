@@ -25,7 +25,10 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(MainFragment.newInstance(), mBinding.mainContainer.id)
 
         // 下を拡張したのが上
-        // val manager = supportFragmentManager.beginTransaction().replace(R.id.main_container, MainFragment.newInstance()).commit()
+        val manager = supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, MainFragment.newInstance())
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

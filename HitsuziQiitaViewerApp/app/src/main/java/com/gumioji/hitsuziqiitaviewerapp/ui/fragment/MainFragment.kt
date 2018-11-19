@@ -11,7 +11,7 @@ import com.gumioji.hitsuziqiitaviewerapp.R
 import com.gumioji.hitsuziqiitaviewerapp.adapter.ListAdapter
 import com.gumioji.hitsuziqiitaviewerapp.data.Item
 import com.gumioji.hitsuziqiitaviewerapp.ext.replaceFragment
-import com.gumioji.hitsuziqiitaviewerapp.repository.SearchRepository
+import com.gumioji.hitsuziqiitaviewerapp.repository.QiitaRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
             URLEncoder.encode(it, "UTF-8")
         }
 
-        val subscribe = SearchRepository.searchItem(text)
+        val subscribe = QiitaRepository.searchItem(text)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
