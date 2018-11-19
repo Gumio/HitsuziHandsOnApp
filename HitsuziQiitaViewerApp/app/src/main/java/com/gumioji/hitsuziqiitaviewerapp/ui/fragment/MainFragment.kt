@@ -10,7 +10,11 @@ import android.widget.AdapterView
 import com.gumioji.hitsuziqiitaviewerapp.R
 import com.gumioji.hitsuziqiitaviewerapp.adapter.ListAdapter
 import com.gumioji.hitsuziqiitaviewerapp.data.Item
+import com.gumioji.hitsuziqiitaviewerapp.repo.QiitaRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.net.URLEncoder
 
 
 class MainFragment : Fragment() {
@@ -42,8 +46,24 @@ class MainFragment : Fragment() {
                 Snackbar.make(this, "${position}番目のイベントが取れたぜ", Snackbar.LENGTH_SHORT).show()
             }
         }
-        dummy()
+        searchRequest()
     }
+
+    fun searchRequest(searchText: String? = null) {
+        val text: String? = searchText?.let {
+            URLEncoder.encode(it, "UTF-8")
+        }
+        val subscribe = QiitaRepository.searchItem(text)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ result ->
+                mAdapter.clear()
+                result?.forEach { mAdapter.add(it) }
+            }, { error ->
+                error.printStackTrace()
+            })
+    }
+
 
     fun dummy() {
         mutableListOf<Item>().apply {

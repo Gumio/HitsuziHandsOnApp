@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // replaceFragment(MainFragment.newInstance(), mBinding.mainContainer.id)
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, MainFragment.newInstance()).commit()
+        // 下を拡張したのが上
+        val manager = supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, MainFragment.newInstance())
+            .commit()
     }
 }
