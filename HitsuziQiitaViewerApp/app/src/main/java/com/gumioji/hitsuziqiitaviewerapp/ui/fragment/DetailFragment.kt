@@ -37,22 +37,18 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        setupView()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun init() {
+    private fun setupView() {
         val url = arguments?.getString(ARGS_NAME)
 
         parentFragment?.view?.apply {
             setOnKeyListener(View.OnKeyListener { _, _, event ->
-                if (event.keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (event.action == KeyEvent.ACTION_UP) {
-                        fragmentManager!!.popBackStack()
-                        return@OnKeyListener true
-                    } else {
-                        return@OnKeyListener true
-                    }
+                if (event.keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                    fragmentManager!!.popBackStack()
+                    return@OnKeyListener true
                 }
                 false
             })

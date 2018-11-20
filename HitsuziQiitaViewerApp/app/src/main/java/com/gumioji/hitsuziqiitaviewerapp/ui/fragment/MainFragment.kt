@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import com.gumioji.hitsuziqiitaviewerapp.R
 import com.gumioji.hitsuziqiitaviewerapp.adapter.ListAdapter
 import com.gumioji.hitsuziqiitaviewerapp.data.Item
-import com.gumioji.hitsuziqiitaviewerapp.ext.replaceFragment
 import com.gumioji.hitsuziqiitaviewerapp.repository.QiitaRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -46,7 +45,12 @@ class MainFragment : Fragment() {
             onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                 Snackbar.make(this, "${position}番目のイベントが取れたぜ", Snackbar.LENGTH_SHORT).show()
                 val result = mAdapter.getItem(position)
-                replaceFragment(DetailFragment.newInstance(result?.url.toString()), R.id.main_container)
+                fragmentManager
+                    ?.beginTransaction()
+                    ?.replace(R.id.main_container, DetailFragment.newInstance(result?.url.toString()))
+                    ?.addToBackStack(null)
+                    ?.commit()
+                // replaceFragment(DetailFragment.newInstance(result?.url.toString()), R.id.main_container)
             }
         }
         searchRequest()
